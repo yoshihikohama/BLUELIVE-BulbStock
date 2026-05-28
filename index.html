@@ -327,15 +327,21 @@
 
 <script>
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbzT9TowFTONYtJgJFnvOs-VKm9DDQyJlS4BkFwRGvWDJrHKIxnIBrhFHH5HTXtVHHF_/exec';
-const BULBS = ['Par500w N', 'Par500w M', 'フレネル'];
+const BULBS = [
+  '5N JP100V500W C/N/S6/E',
+  '5M JP100V500W C/M/S6/E',
+  'ミニブル JP100V-500W C/W/S3/S',
+  '500wフレネル JP100V/500W B/M/GYX9.5',
+  'クセノンピン UXL-500PR RJ0786',
+  'C-spot USHIO HPL100V575WC',
+  'ストロボ FL900D'
+];
 
-let state = {
-  stock: { 'Par500w N': 0, 'Par500w M': 0, 'フレネル': 0 },
-  history: { 'Par500w N': [], 'Par500w M': [], 'フレネル': [] }
-};
+let state = { stock: {}, history: {} };
+BULBS.forEach(b => { state.stock[b] = 0; state.history[b] = []; });
 let busy = false;
 
-function sk(b) { return b.replace(/ /g, '_'); }
+function sk(b) { return b.replace(/[^a-zA-Z0-9\u3040-\u30FF\u4E00-\u9FFF]/g, '_'); }
 
 function fmt(d) {
   const dt = new Date(d);
